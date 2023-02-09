@@ -1,0 +1,55 @@
+Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd
+
+SELECT model, speed, hd from PC
+WHERE price < 500
+
+Найдите производителей принтеров. Вывести: maker
+
+SELECT DISTINCT maker 
+FROM Product  
+WHERE type = 'Printer'
+
+Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.
+
+SELECT model, ram, screen
+FROM laptop
+WHERE price >= '1000'
+
+Найдите все записи таблицы Printer для цветных принтеров.
+
+SELECT DISTINCT code, model, color, type, price
+FROM Printer
+WHERE color = 'y'
+
+Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+
+SELECT model, speed, hd
+FROM PC
+WHERE cd IN ('12x','24x')
+AND price < 600
+
+Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.
+
+SELECT DISTINCT Product.maker, Laptop.speed
+FROM Product, Laptop 
+WHERE Product.model = Laptop.model 
+AND Laptop.hd >= 10
+
+Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+
+SELECT maker from Product
+WHERE type = 'pc'
+EXEPT
+SELECT maker
+FROM Product
+WHERE type = 'laptop'
+
+Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+
+Select DISTINCT p.maker FROM Product p JOIN pc pc ON p.model = pc.model where pc.speed >= '450'
+
+Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+
+SELECT DISTINCT model, price
+FROM Printer
+WHERE price = (SELECT MAX(price) FROM Printer)
